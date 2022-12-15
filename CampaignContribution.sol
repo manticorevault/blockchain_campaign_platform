@@ -16,6 +16,7 @@ contract CampaignContract {
     address public manager;
     uint public minimumContribution;
     mapping(address => bool) public approvers; 
+    uint public approversCount;
 
     // Confirm that whoever is creating a request
     // is the campaign manager
@@ -40,6 +41,9 @@ contract CampaignContract {
         require(msg.value > minimumContribution);
 
         approvers[msg.sender] = true;
+
+        // Increment the approversCount
+        approversCount++;
     }
 
     // A public function for the manager to create campaign 
@@ -57,5 +61,36 @@ contract CampaignContract {
                     newRequest.recipient = recipient;
                     newRequest.complete = false;
                     newRequest.approvalCount = 0;
-                }     
+                }    
+
+    // A public function to check all the approved requests
+    // based on their index
+    function approveRequest(uint index) public {
+
+        Request storage request = requests[index];
+
+        // Requirements: User is a donator
+        require(approvers[msg.sender]);
+        // Requirements: User didn't vote before
+        require(!request.approvingVotes[msg.sender]);
+
+        // Add the user address to the approval's mapping
+        request.approvingVotes[msg.sender] = true;
+        request.approvalCount++;
+
+    }
+
+    // Create a function that a manager finalizes a request, 
+    // only after the request already gathered enough votes
+
+    function finalizeRequest(uint index) public onlyManager {
+
+        Request storage request = requests[index];
+
+        require(request.approvalCount > (approversCount / 2));
+        require(!request.complete);
+
+        payable(request.recipient).transfer(request.value);
+        request.complete = true;
+    }
 } 
