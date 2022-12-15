@@ -8,16 +8,18 @@ contract CampaignContract {
         uint value;
         address recipient;
         bool complete;
+        uint approvalCount; 
+        mapping(address => bool) approvingVotes;
     }
 
     Request[] public requests; 
     address public manager;
     uint public minimumContribution;
-    address[] public approvers;
+    mapping(address => bool) public approvers; 
 
     // Confirm that whoever is creating a request
     // is the campaign manager
-    modifier restricted() {
+    modifier onlyManager() {
         require(msg.sender == manager);
         _;
 
@@ -37,26 +39,23 @@ contract CampaignContract {
     function contribute() public payable {
         require(msg.value > minimumContribution);
 
-        approvers.push(msg.sender);
+        approvers[msg.sender] = true;
     }
 
     // A public function for the manager to create campaign 
     // requests from an external account, locked by the custom
-    // restricted modifier
+    // restricted 'onlyManager' modifier
     function createRequest
                 (string memory description, 
                 uint value, 
                 address recipient) 
-                public restricted {
-                    Request memory newRequest = Request({
-                        description: description,
-                        value: value,
-                        recipient: recipient,
-                        complete: false
-                    });
-
-
-
-                    requests.push(newRequest);
-    }
+                public onlyManager {
+                    Request storage newRequest = requests.push();
+                    
+                    newRequest.description = description;
+                    newRequest.value = value;
+                    newRequest.recipient = recipient;
+                    newRequest.complete = false;
+                    newRequest.approvalCount = 0;
+                }     
 } 
