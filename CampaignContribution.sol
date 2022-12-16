@@ -1,6 +1,26 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.x;
 
+// Create a Factory contract that will deploy the 
+// original campaign contract
+contract CampaignFactory {
+    address[] public deployedCampaigns;
+
+    function createCampaign(uint minimumAmount) external {
+        // Instructions to deploy the new instances
+        // of the campaign contract
+        address newCampaign = address(new CampaignContract(minimumAmount, msg.sender));
+
+        // Add the newly generated campaign to the array
+        deployedCampaigns.push(newCampaign);
+    }
+
+    // Returns the campaign's array
+    function getDeployedCampaigns() public view returns (address[] memory){
+        return deployedCampaigns;
+    }
+}
+
 contract CampaignContract {
 
     struct Request {
@@ -29,8 +49,8 @@ contract CampaignContract {
     // Defines the Campaign as a public function,
     // with the sender as a manager and a minimum
     // value for contribution 
-    function Campaign(uint minimum) public {
-        manager = msg.sender;
+    constructor(uint minimum, address campaignCreator) {
+        manager = campaignCreator;
         minimumContribution = minimum;
     }
 
