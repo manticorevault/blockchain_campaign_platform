@@ -34,9 +34,10 @@ const output = JSON.parse(solc.compile(JSON.stringify(input)));
 // Check if the dir exists, otherwise creates it
 fs.ensureDirSync(buildPath)
 
+// Creates a file based on the output
 for (let contract in output.contracts["CampaignContribution.sol"]) {
     fs.outputJSONSync(
-        path.resolve(buildPath, contract + "json"),
+        path.resolve(buildPath, contract.replace(":", "") + "json"),
         output.contracts["CampaignContribution.sol"][contract]
     );
 }
