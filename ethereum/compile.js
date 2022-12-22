@@ -44,4 +44,4 @@ for (let contract in output.contracts["CampaignContribution.sol"]) {
 
 module.exports = JSON.parse(solc.compile(JSON.stringify(input)))
             .contracts["CampaignContribution.sol"]
-            .Campaign;
+            .CampaignContract;

@@ -1,7 +1,8 @@
 const assert = require("assert");
 const ganache = require("ganache-cli");
+const options = { gasLimit: 100000000 };
 const Web3 = require("web3");
-const web3 = new Web3(ganache.provider());
+const web3 = new Web3(ganache.provider(options));
 
 const compiledFactory = require("../ethereum/build/CampaignFactory.json");
 const compiledCampaign =  require("../ethereum/build/CampaignContract.json");
@@ -12,16 +13,19 @@ let campaignAddress;
 let campaign;
 
 beforeEach(async () => {
+
     accounts = await web3.eth.getAccounts();
 
     factory = await new web3.eth.Contract(compiledFactory.abi)
-            .deploy({ data: compiledFactory.bytecode })
-            .send({ from: accounts[0], gas: "1000000" });
+            .deploy({ data: compiledFactory.evm.bytecode.object })
+            .send({ from: accounts[0], gas: "10000000" });
+
+    const initialCost = await web3.eth.getBalance(accounts[0]);
 
     await factory.methods.createCampaign("100").send({
         from: accounts[0],
-        gas: "1000000"
-    });
+        gas: "10000000",
+      });
 
     [campaignAddress] = await factory.methods.getDeployedCampaigns().call();
 
@@ -29,6 +33,10 @@ beforeEach(async () => {
         compiledCampaign.abi,
         campaignAddress
     );
+
+    const finalCost = await web3.eth.getBalance(accounts[0]);
+
+    console.log("The transaction cost was: ", initialCost - finalCost);
 });
 
 describe("Campaigns", () => {
