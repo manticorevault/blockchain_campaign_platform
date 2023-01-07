@@ -1,21 +1,19 @@
 import React, { Component } from "react";
 import factory from "../ethereum/factory";
 
-interface Props {
-    campaigns: string[];
+function CampaignIndex({ campaigns }: any) {
+    console.log("Campaigns", campaigns); 
+
+    return <h1> { campaigns[0] } </h1>
 }
 
-class CampaignIndex extends Component<Props> {
+CampaignIndex.getInitialProps = async () => {
+    const campaigns = await factory.methods.getDeployedCampaigns().call()
 
-    static async getInitialProps() {
-        const campaigns = await factory.methods.getDeployedCampaigns().call();
+    return { campaigns };
+};
 
-        return { campaigns };
-    }
+export default CampaignIndex
 
-    render() {
-        return <div> { this.props.campaigns[0] } </div>;
-    }
-}
 
-export default CampaignIndex;
+

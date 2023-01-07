@@ -8,7 +8,7 @@ if (typeof window !== "undefined" && typeof window.ethereum !== "undefined") {
   web3 = new Web3(window.ethereum);
 } else {
   const provider = new Web3.providers.HttpProvider(
-    process.env.GOERLI_TEST_NETWORK
+    config.GOERLI_TEST_NETWORK
   );
 
   web3 = new Web3(provider);
