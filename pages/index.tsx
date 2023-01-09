@@ -8,7 +8,7 @@ interface Props {
 }
 
 export default function Home({ campaigns }: Props) {
-    const items = campaigns.map((item: any) => {
+    const campaignItems = campaigns.map((item: any) => {
         return {
             header: item,
             description: <a> View Campaign </a>,
@@ -19,13 +19,14 @@ export default function Home({ campaigns }: Props) {
     return (
         <div>
             <h3> Open Campaigns </h3>
-            <Card.Group items={items} />
-            <Button 
+            <Button
+                floated="right" 
                 content="Create Campaign!"
                 icon="add circle"
                 labelPosition="right"
                 primary
             />
+            <Card.Group items={campaignItems} />
         </div>
     );
 }
