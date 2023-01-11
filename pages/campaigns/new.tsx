@@ -1,34 +1,41 @@
-import React from "react";
-import { Form, Button } from "semantic-ui-react";
+import React, { useState } from "react";
+import { Form, Button, Input } from "semantic-ui-react";
 
-const CampaignNew = class extends React.Component {
-    render() {
-        return (
-        
-            <div>
-                <h3> Create a Campaign </h3>
-                
-                <Form>
-                    <Form.Field>
-                        <label>
-                            Campaign Details
-                        </label>
+const CampaignNew:React.FC = () => {
+    const [minimumContribution, setMinimumContribution] = useState<string>("");
 
-                        <input 
-                            placeholder="Minimum Contribution"
-                        />
-                    </Form.Field>  
+    const onMinimumContributionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setMinimumContribution(event.target.value);
+    };
 
-                    <Button
-                        primary 
-                    >
-                        Create
-                    </Button>
-                </Form>
-            </div>
+    return (
+        <div>
+            <h3> Create Your Campaign </h3>
 
-        );
-    }
+            <Form>
+                <Form.Field>
+                    <label>
+                        Campaign Details
+                    </label>
+
+                    <Input 
+                        label="ETH"
+                        labelPosition="right"
+                        placeholder="Minimum Contribution in ETH"
+                        value={ minimumContribution }
+                        onChange={ onMinimumContributionChange }
+                    />
+                </Form.Field>  
+
+                <Button
+                    primary 
+                >
+                    Create
+                </Button>
+            </Form>
+        </div>
+    )
 }
+
 
 export default CampaignNew;
