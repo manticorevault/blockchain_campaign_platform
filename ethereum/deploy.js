@@ -1,11 +1,11 @@
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 const Web3 = require("web3");
 const compiledFactory = require("./build/CampaignFactory.json");
-require('dotenv').config()
+const config = require("../config");
 
 const provider = new HDWalletProvider(
-    process.env.METAMASK_TEST_SEED,
-    process.env.GOERLI_TEST_NETWORK
+    config.metamask.TEST_SEED,
+    config.infura.GOERLI_TEST_NETWORK
 );
 
 const web3 = new Web3(provider);

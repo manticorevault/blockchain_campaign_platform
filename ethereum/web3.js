@@ -1,5 +1,5 @@
 import Web3 from "web3";
-import { config } from "./config";
+const config = require("../config");
 
 let web3;
 
@@ -9,7 +9,7 @@ if (typeof window !== "undefined" && typeof window.ethereum !== "undefined") {
   web3 = new Web3(window.ethereum);
 } else {
   const provider = new Web3.providers.HttpProvider(
-    config.GOERLI_TEST_NETWORK
+    "https://goerli.infura.io/v3/b21d16fea4e3416c9bb3262d18fca821"
   );
 
   web3 = new Web3(provider);

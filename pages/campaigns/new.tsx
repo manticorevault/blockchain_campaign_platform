@@ -1,41 +1,67 @@
-import React, { useState } from "react";
-import { Form, Button, Input } from "semantic-ui-react";
+import React, { Component } from 'react';
+import { Form, Button, Input, Message } from 'semantic-ui-react';
+import Layout from '../../components/Layout';
+import factory from '../../ethereum/factory';
+import web3 from "../../ethereum/web3";
 
-const CampaignNew:React.FC = () => {
-    const [minimumContribution, setMinimumContribution] = useState<string>("");
+class CampaignNew extends Component {
 
-    const onMinimumContributionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setMinimumContribution(event.target.value);
-    };
+  state = {
+    minimumContribution: '',
+    errorMessage: '',
+    loading: false
+  };
 
+  onSubmit = async (event: { preventDefault: () => void; }) => {
+    event.preventDefault();
+
+    this.setState({ loading: true, errorMessage: '' });
+
+    try {
+      const accounts = await web3.eth.getAccounts();
+      await factory.methods
+        .createCampaign(this.state.minimumContribution)
+        .send({
+          from: accounts[0]
+        });
+        
+    } catch (error) {
+      this.setState({ errorMessage: error.message });
+    }
+
+    this.setState({ loading: false });
+  };
+
+  render() {
     return (
-        <div>
-            <h3> Create Your Campaign </h3>
+      <div>
+        <h3>
+          Create a Campaign
+        </h3>
 
-            <Form>
-                <Form.Field>
-                    <label>
-                        Campaign Details
-                    </label>
+        <Form onSubmit={ this.onSubmit } error={ !!this.state.errorMessage }>
+          <Form.Field>
+            <label>
+              Minimum Contribution
+            </label>
+            <Input
+              label="wei"
+              labelPosition="right"
+              placeholder="Value in Wei"
+              value={ this.state.minimumContribution } 
+              onChange={event =>
+                this.setState({ minimumContribution: event.target.value })}
+            />
+          </Form.Field>
 
-                    <Input 
-                        label="ETH"
-                        labelPosition="right"
-                        placeholder="Minimum Contribution in ETH"
-                        value={ minimumContribution }
-                        onChange={ onMinimumContributionChange }
-                    />
-                </Form.Field>  
-
-                <Button
-                    primary 
-                >
-                    Create
-                </Button>
-            </Form>
-        </div>
-    )
+          <Message error header="Oops! Something went wrong!" content={ this.state.errorMessage } />
+          <Button loading={ this.state.loading } primary>
+            Create!
+          </Button>
+        </Form>
+      </div>
+    );
+  }
 }
-
 
 export default CampaignNew;
