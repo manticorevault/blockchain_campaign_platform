@@ -1,5 +1,6 @@
 import React from "react";
 import { Menu } from "semantic-ui-react";
+import Link from "next/link";
 
 export default () => {
     return (
@@ -8,18 +9,30 @@ export default () => {
                 marginTop: "10px"
              }}
         >
-            <Menu.Item>
-                BlockFund
-            </Menu.Item>
+            <Link
+                href={ "/" }
+            >
+                <a className="item">
+                    BlockFund
+                </a>
+            </Link>
 
             <Menu.Menu position="right">
-                <Menu.Item>
-                    Campaigns
-                </Menu.Item>
+                <Link 
+                    href={ "/" }
+                >
+                    <a className="item">
+                        Campaigns
+                    </a>
+                </Link>
 
-                <Menu.Item>
-                    +
-                </Menu.Item>
+                <Link 
+                    href={ "/campaigns/new" }
+                >
+                    <a className="item">
+                        +
+                    </a>
+                </Link>
             </Menu.Menu>
         </Menu>
     )
