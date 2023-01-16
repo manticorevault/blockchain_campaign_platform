@@ -1,8 +1,9 @@
 const routes = require('next-routes')();
-export {}
 
-routes
-    .add("/campaigns/new")
-    .add("/campaigns/:address", "/campaigns/show")
+
+routes.add("/campaigns/:address", "/campaigns/show");
+routes.add("/campaigns/new", "/campaigns.new");
 
 module.exports = routes;
+
+export default routes;
