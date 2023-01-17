@@ -28,6 +28,11 @@ const CampaignShow: React.FC<Props> = ({
 
         useEffect(() => {
             const getData = async () => {
+
+                // Type checking for address
+                if (typeof router.query.address !== "string") {
+                    return;
+                }
                 const campaign = Campaign(router.query.address);
                 const summary = await campaign.methods.getSummary().call();
                 
