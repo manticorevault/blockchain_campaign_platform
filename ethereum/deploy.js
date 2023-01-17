@@ -11,16 +11,25 @@ const provider = new HDWalletProvider(
 const web3 = new Web3(provider);
 
 const deploy = async () => {
-    const accounts = await web3.eth.getAccounts();
-    console.log("Attempting to deploy using account " + accounts[0]);
+    try {
+        if(!compiledFactory.evm.bytecode.object){
+          throw new Error("Compiled bytecode is empty")
+        }
+        const accounts = await web3.eth.getAccounts();
+        if(!accounts[0]){
+          throw new Error("Account not found")
+        }
+        console.log("Attempting to deploy using account " + accounts[0]);
 
-    const txn = await new web3.eth.Contract(compiledFactory.abi)
-                        .deploy({ data: "0x" + compiledFactory.evm.bytecode.object })
-                        .send({ from: accounts[0] });
+        const txn = await new web3.eth.Contract(compiledFactory.abi)
+                            .deploy({ data: "0x" + compiledFactory.evm.bytecode.object })
+                            .send({ from: accounts[0] });
 
-    console.log("The contract is sitting at " + txn.options.address);
-
+        console.log("The contract factory is sitting at " + txn.options.address);
+    } catch (err) {
+        console.log("Error: " + err.message);
+    }
     provider.engine.stop(); 
 };
 
-deploy();
+deploy().catch(console.error);

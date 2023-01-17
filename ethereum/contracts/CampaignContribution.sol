@@ -113,4 +113,26 @@ contract CampaignContract {
         payable(request.recipient).transfer(request.value);
         request.complete = true;
     }
+
+    // Returns a summary of the contract's statistics.
+    function getSummary() public view returns (
+        uint256, // For minimumContribution,
+        uint256, // For balance,
+        uint256, // for requests length,
+        uint256, // for approversCount,
+        address // for manager
+    ) {
+        return (
+            minimumContribution,
+            address(this).balance,
+            requests.length,
+            approversCount,
+            manager
+        );
+    }
+
+    // Returns the number of requests in a certain contract call
+    function getRequestsCount() public view returns (uint256) {
+        return requests.length;
+    }
 } 
