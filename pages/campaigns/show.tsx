@@ -36,6 +36,7 @@ const CampaignShow: React.FC<Props> = ({
                 if (typeof router.query.address !== "string") {
                     return;
                 }
+
                 const campaign = Campaign(router.query.address);
                 const summary = await campaign.methods.getSummary().call();
                 
@@ -101,7 +102,9 @@ const CampaignShow: React.FC<Props> = ({
                     </Grid.Column>
 
                     <Grid.Column width={ 6 }>
-                        <ContributeForm />
+                        <ContributeForm 
+                            address={ router.query.address }
+                        />
                     </Grid.Column>
                 </Grid>
             </div>
