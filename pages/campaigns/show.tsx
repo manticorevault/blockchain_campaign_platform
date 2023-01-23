@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
 import React, { Component, useEffect, useState } from 'react';
+import { Card } from 'semantic-ui-react';
 import Campaign from "../../ethereum/campaign";
+import web3 from "../../ethereum/web3";
 
 interface Props {
     address: string;
@@ -49,17 +51,45 @@ const CampaignShow: React.FC<Props> = ({
             getData();
         }, [router.query.address]);
 
+        const items = [
+            {
+                header: manager,
+                meta: "Manager's address",
+                description: "Manager created this campaign",
+                style: { overflowWrap: "break-word" }
+            },
+            {
+                header: minimumContribution,
+                meta: "Minimum Contribution in Wei",
+                description: "This should be the minimum contribution to become an approver",
+            },
+            {
+                header: requestCount,
+                meta: "Number of requests",
+                description: "A request will withdraw money from the campaign if successfully approved"
+            },
+            {
+                header: approversCount,
+                meta: "Number of approvers",
+                description: "Number of people who have already donated to this campaign"
+            },
+            {
+                header: web3.utils.fromWei(balance, "ether"),
+                meta: "Campaign balance in ETH",
+                description: "How much money this campaign has left to spend"
+            }
+        ];
+
         return (
             <div>
-                <h3>{campaign ? campaign.address : 'Loading...'}</h3>
+                <h2>
+                    Campaign Address
+                </h2>
+                <h3>
+                    {campaign ? campaign.address : 'Loading...'}
+                </h3>
                 {campaign ? (
-                    <>
-                        <p>Minimum Contribution: {campaign.minimumContribution}</p>
-                        <p>Balance: {campaign.balance}</p>
-                        <p>Requests Count: {campaign.requestCount}</p>
-                        <p>Approvers Count: {campaign.approversCount}</p>
-                        <p>Manager: {campaign.manager}</p>
-                    </>
+                    <Card.Group items={ items } />
                 ) : (
                     <p>Loading...</p>
                 )}
