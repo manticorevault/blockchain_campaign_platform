@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import React, { Component, useEffect, useState } from 'react';
-import { Card } from 'semantic-ui-react';
+import { Card, Grid } from 'semantic-ui-react';
 import Campaign from "../../ethereum/campaign";
 import web3 from "../../ethereum/web3";
 import ContributeForm from "../../components/ContributeForm";
@@ -91,13 +91,19 @@ const CampaignShow: React.FC<Props> = ({
                     {campaign ? campaign.address : 'Loading...'}
                 </h3>
 
-                {campaign ? (
-                    <Card.Group items={ items } />
-                ) : (
-                    <p>Loading...</p>
-                )}
+                <Grid>
+                    <Grid.Column width={ 10 }>
+                        {campaign ? (
+                            <Card.Group items={ items } />
+                        ) : (
+                            <p>Loading...</p>
+                        )}
+                    </Grid.Column>
 
-                <ContributeForm />
+                    <Grid.Column width={ 6 }>
+                        <ContributeForm />
+                    </Grid.Column>
+                </Grid>
             </div>
         );
 };
