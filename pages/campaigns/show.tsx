@@ -3,6 +3,7 @@ import React, { Component, useEffect, useState } from 'react';
 import { Card } from 'semantic-ui-react';
 import Campaign from "../../ethereum/campaign";
 import web3 from "../../ethereum/web3";
+import ContributeForm from "../../components/ContributeForm";
 
 interface Props {
     address: string;
@@ -85,14 +86,18 @@ const CampaignShow: React.FC<Props> = ({
                 <h2>
                     Campaign Address
                 </h2>
+
                 <h3>
                     {campaign ? campaign.address : 'Loading...'}
                 </h3>
+
                 {campaign ? (
                     <Card.Group items={ items } />
                 ) : (
                     <p>Loading...</p>
                 )}
+
+                <ContributeForm />
             </div>
         );
 };
