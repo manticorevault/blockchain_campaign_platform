@@ -1,9 +1,10 @@
 import { useRouter } from 'next/router';
 import React, { Component, useEffect, useState } from 'react';
-import { Card, Grid } from 'semantic-ui-react';
+import { Card, Grid, Button } from 'semantic-ui-react';
 import Campaign from "../../ethereum/campaign";
 import web3 from "../../ethereum/web3";
 import ContributeForm from "../../components/ContributeForm";
+import { Link } from "../../routes";
 
 interface Props {
     address: string;
@@ -99,6 +100,18 @@ const CampaignShow: React.FC<Props> = ({
                         ) : (
                             <p>Loading...</p>
                         )}
+
+                        <Link 
+                            href={ `/campaigns/${ router.query.address }/requests` }
+                        >
+                            <a>
+                                <Button
+                                    primary
+                                >
+                                    View Requests
+                                </Button>
+                            </a>
+                        </Link>
                     </Grid.Column>
 
                     <Grid.Column width={ 6 }>
