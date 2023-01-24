@@ -94,31 +94,38 @@ const CampaignShow: React.FC<Props> = ({
                 </h3>
 
                 <Grid>
-                    <Grid.Column width={ 10 }>
-                        {campaign ? (
-                            <Card.Group items={ items } />
-                        ) : (
-                            <p>Loading...</p>
-                        )}
+                    <Grid.Row>
+                        <Grid.Column width={ 10 }>
+                            {campaign ? (
+                                <Card.Group items={ items } />
+                            ) : (
+                                <p>Loading...</p>
+                            )}
+                        </Grid.Column>
 
-                        <Link 
-                            href={ `/campaigns/${ router.query.address }/requests` }
-                        >
-                            <a>
-                                <Button
-                                    primary
-                                >
-                                    View Requests
-                                </Button>
-                            </a>
-                        </Link>
-                    </Grid.Column>
+                        <Grid.Column width={ 6 }>
+                            <ContributeForm 
+                                address={ router.query.address }
+                            />
+                        </Grid.Column>
+                    </Grid.Row>
 
-                    <Grid.Column width={ 6 }>
-                        <ContributeForm 
-                            address={ router.query.address }
-                        />
-                    </Grid.Column>
+                    <Grid.Row>
+                        <Grid.Column>
+                            <Link 
+                                href={ `/campaigns/${ router.query.address }/requests` }
+                            >
+                                <a>
+                                    <Button
+                                        primary
+                                    >
+                                        View Requests
+                                    </Button>
+                                </a>
+                            </Link>
+                        </Grid.Column>
+                    </Grid.Row>
+
                 </Grid>
             </div>
         );
