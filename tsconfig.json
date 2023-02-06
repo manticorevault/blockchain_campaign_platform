@@ -103,7 +103,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "ethereum/web3.js", "ethereum/factory.js", "pages/index.jsx", "pages/_app.ts", "pages/campaigns/new.tsx", "routes.js", "server.ts"  ],
+, "ethereum/web3.js", "ethereum/factory.js", "pages/index.jsx", "pages/_app.ts", "pages/campaigns/new.tsx", "routes.js", "server.ts", "pages/campaigns/requests/index.tsx"  ],
   "exclude": [
     "node_modules"
   ]
