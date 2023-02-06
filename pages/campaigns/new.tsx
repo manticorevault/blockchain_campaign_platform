@@ -19,6 +19,7 @@ class CampaignNew extends Component {
 
     try {
       const accounts = await web3.eth.getAccounts();
+
       await factory.methods
         .createCampaign(this.state.minimumContribution)
         .send({
@@ -27,8 +28,8 @@ class CampaignNew extends Component {
 
         Router.push("/");
         
-    } catch (error) {
-      this.setState({ errorMessageer: error.message });
+    } catch (error: any) {
+      this.setState({ errorMessage: error.message });
     }
 
     this.setState({ loading: false });

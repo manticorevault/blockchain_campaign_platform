@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Table } from 'semantic-ui-react';
 import { Link } from '../../../routes';
 import Campaign from '../../../ethereum/campaign';
+import RequestRow from "../../../components/RequestRow";
 
 interface Props {
   address: string;
@@ -16,7 +17,15 @@ interface Props {
   approversCount: number;
 }
 
+interface Request {
+  key: number,
+  id: number,
+  request: string,
+  address: string
+}
+
 class RequestIndex extends Component<Props> {
+
   static async getInitialProps(props: any) {
     const { address } = props.query;
     const campaign = Campaign(address);
@@ -34,11 +43,25 @@ class RequestIndex extends Component<Props> {
     return { address, requests, requestCount, approversCount };
   }
 
+  renderRow() {
+    return  this.props.requests.map((request, index) => {
+      return (
+        <RequestRow 
+            key={ index }
+            id={ index }
+            request={ request }
+            address={ this.props.address } 
+            approversCount = { this.props.approversCount }
+        />
+      )
+    })
+  }
+
   render() {
     const { Header, Row, HeaderCell, Body } = Table;
 
     return (
-      <div>
+      <>
         <h3>
           Requests
         </h3>
@@ -62,9 +85,13 @@ class RequestIndex extends Component<Props> {
               <HeaderCell>Finalize</HeaderCell>
             </Row>
           </Header>
+          <Body>
+            { this.renderRow() }
+          </Body>
         </Table>
-        <div>Found {this.props.requestCount} requests.</div>
-      </div>
+
+        <div>There are {this.props.requestCount} requests.</div>
+      </>
     );
   }
 }
