@@ -30,7 +30,7 @@ class RequestIndex extends Component {
             key={ index }
             id={ index }
             request={ request }
-            address={ this.props.address } 
+            address={ this.props.id } 
             approversCount = { this.props.approversCount }
         />
       )
