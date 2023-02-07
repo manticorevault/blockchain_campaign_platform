@@ -4,29 +4,9 @@ import { Link } from '../../../routes';
 import Campaign from '../../../ethereum/campaign';
 import RequestRow from "../../../components/RequestRow";
 
-interface Props {
-  address: string;
-  requests: {
-    description: string;
-    value: string;
-    recipient: string;
-    approvalCount: number;
-    complete: boolean;
-  }[];
-  requestCount: number;
-  approversCount: number;
-}
+class RequestIndex extends Component {
 
-interface Request {
-  key: number,
-  id: number,
-  request: string,
-  address: string
-}
-
-class RequestIndex extends Component<Props> {
-
-  static async getInitialProps(props: any) {
+  static async getInitialProps(props) {
     const { address } = props.query;
     const campaign = Campaign(address);
     const requestCount = await campaign.methods.getRequestsCount().call();

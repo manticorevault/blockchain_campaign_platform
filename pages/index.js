@@ -4,12 +4,9 @@ import "semantic-ui-css/semantic.min.css";
 import factory from "../ethereum/factory";
 import Link from "next/link";
 
-interface Props {
-    campaigns: any[];
-}
 
-export default function Home({ campaigns }: Props) {
-    const campaignItems = campaigns.map((item: any) => {
+export default function Home({ campaigns }) {
+    const campaignItems = campaigns.map((item) => {
         return {
             header: item,
             description: (

@@ -3,20 +3,7 @@ import { Table, Button } from "semantic-ui-react";
 import web3 from "../ethereum/web3";
 import Campaign from "../ethereum/campaign";
 
-interface Props {
-    id: any;
-    request: {
-        description: string;
-        value: number;
-        recipient: string;
-        approvalCount: number;
-        complete: boolean;
-    };
-    address: string;
-    approversCount: any;
-}
-
-class RequestRow extends Component<Props> {
+class RequestRow extends Component {
 
     onApprove = async () => {
         const campaign = Campaign(this.props.address)

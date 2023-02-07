@@ -1,6 +1,6 @@
 import React from 'react';
 
-const footerStyle: React.CSSProperties = {
+const footerStyle = {
   position: 'fixed',
   left: 0,
   bottom: 0,
@@ -10,7 +10,7 @@ const footerStyle: React.CSSProperties = {
   textAlign: 'center',
 };
 
-const Footer: React.FC = () => {
+const Footer = () => {
   return (
     <footer style={footerStyle}>
       <p>

@@ -6,16 +6,8 @@ import web3 from "../../ethereum/web3";
 import ContributeForm from "../../components/ContributeForm";
 import { Link } from "../../routes";
 
-interface Props {
-    address: string;
-    minimumContribution: string;
-    balance: string;
-    requestCount: string;
-    approversCount: string;
-    manager: string;
-}
 
-const CampaignShow: React.FC<Props> = ({
+const CampaignShow = ({
         address,
         minimumContribution,
         balance,
@@ -131,7 +123,7 @@ const CampaignShow: React.FC<Props> = ({
         );
 };
 
-export const getServerSideProps = async (ctx: any) => {
+export const getServerSideProps = async () => {
 
     // Type check for address
     if(typeof ctx.query.address !== "string") {

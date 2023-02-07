@@ -5,11 +5,8 @@ import web3 from "../../../ethereum/web3";
 import router, { useRouter } from "next/router";
 import { Link } from "../../../routes";
 
-interface Props {
-    address: string;
-  }
 
-class RequestNew extends Component<Props> {
+class RequestNew extends Component {
 
     
 
@@ -21,13 +18,13 @@ class RequestNew extends Component<Props> {
         errorMessage: ""
     };
 
-    static async getInitialProps(props: { query: { address: any; }; }) {
+    static async getInitialProps(props) {
         const { address } = props.query;
 
         return { address };
     }
 
-    onSubmit = async (event: { preventDefault: () => void; }) => {
+    onSubmit = async (event) => {
         event?.preventDefault();
 
         const campaign = Campaign(this.props.address);
@@ -55,7 +52,7 @@ class RequestNew extends Component<Props> {
 
             await router.push(`/campaigns/${ this.props.address }/requests`);
             
-        } catch (err: any) {
+        } catch (err) {
             this.setState({ errorMessage: err.message })
         }
 

@@ -103,7 +103,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "ethereum/web3.js", "ethereum/factory.js", "pages/index.jsx", "pages/_app.ts", "pages/campaigns/new.tsx", "routes.js", "server.ts", "pages/campaigns/requests/index.tsx", "pages/campaigns/show.tsx"  ],
+, "ethereum/web3.js", "ethereum/factory.js", "pages/index.jsx", "pages/_app.ts", "pages/campaigns/new.js", "routes.js", "server.ts", "pages/campaigns/requests/index.js", "pages/campaigns/show.js", "components/ContributeForm.js", "components/Footer.js", "components/Header.js", "components/RequestRow.js", "components/Layout.js" , "pages/campaigns/requests/new.js", "pages/_app.js", "pages/index.js" ],
   "exclude": [
     "node_modules"
   ]

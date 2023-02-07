@@ -12,7 +12,7 @@ class ContributeForm extends Component {
         loading: false
     }
 
-    onSubmit = async (event: { preventDefault: () => void; }) => {
+    onSubmit = async (event) => {
         event.preventDefault();
         const address = Router.query.address
 

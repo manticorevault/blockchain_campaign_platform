@@ -12,7 +12,7 @@ class CampaignNew extends Component {
     loading: false
   };
 
-  onSubmit = async (event: { preventDefault: () => void; }) => {
+  onSubmit = async (event) => {
     event.preventDefault();
 
     this.setState({ loading: true, errorMessage: '' });
@@ -28,7 +28,7 @@ class CampaignNew extends Component {
 
         Router.push("/");
         
-    } catch (error: any) {
+    } catch (error) {
       this.setState({ errorMessage: error.message });
     }
 
