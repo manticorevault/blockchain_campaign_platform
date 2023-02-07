@@ -6,12 +6,12 @@ import Link from "next/link";
 
 
 export default function Home({ campaigns }) {
-    const campaignItems = campaigns.map((item) => {
+    const campaignItems = campaigns.map((address) => {
         return {
-            header: item,
+            header: address,
             description: (
                 <Link
-                    href={`/campaigns/${ item }`}
+                    href={`/campaigns/${ address }`}
                 >
                     <a>
                         View Campaign
