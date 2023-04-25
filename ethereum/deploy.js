@@ -5,7 +5,7 @@ const config = require("../config");
 
 const provider = new HDWalletProvider(
     config.metamask.TEST_SEED,
-    config.infura.GOERLI_TEST_NETWORK
+    "https://sepolia.infura.io/v3/b21d16fea4e3416c9bb3262d18fca821"
 );
 
 const web3 = new Web3(provider);
